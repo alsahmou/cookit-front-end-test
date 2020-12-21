@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Subscribe /> should render and match the snapshot 1`] = `
+<React.Fragment>
+  <Helmet
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title />
+    <meta
+      content=""
+      name="description"
+    />
+  </Helmet>
+  <NavBar />
+  <Subscribe__Wrapper>
+    <h1>
+      Susbscribe
+    </h1>
+    <Subscribe__Form
+      id="subscribe-form"
+    >
+      <FormLabel
+        htmlFor="email"
+      >
+        Email
+      </FormLabel>
+      <Input
+        name="email"
+        type="text"
+      />
+      <FormLabel
+        htmlFor="postalCode"
+      >
+        Postal code
+      </FormLabel>
+      <Input
+        name="postalCode"
+        type="text"
+      />
+      <Button
+        onClick={[Function]}
+        type="submit"
+      >
+        Submit
+      </Button>
+    </Subscribe__Form>
+  </Subscribe__Wrapper>
+</React.Fragment>
+`;
