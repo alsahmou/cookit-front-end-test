@@ -17,7 +17,19 @@
     "form": {
       "email": "Courriel",
       "postalCode": "Code postal",
-      "submit": "Soumettre"
+      "submit": "Soumettre",
+      "emptyEmail": "Un courriel est obligatoire.",
+      "emptyPostalCode": "Un code postal est obligatoire.",
+      "incorrectEmail": "Veuillez insérer un courriel fonctionnel.",
+      "incorrectPostalCode": "Code postal incorrect, veuillez utiliser la forme suivant: A1A 1A1.",
+      "undeliverablePostalCode": "Votre code postal est dehors de notre zone de livraison"
+    }
+  },
+  "confirmation": {
+    "title": "Merci pour votre abonnement",
+    "body": {
+      "email": "Votre Courriel: ",
+      "postalCode": "Votre Code Postal: "
     }
   }
 }

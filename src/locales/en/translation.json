@@ -17,7 +17,19 @@
     "form": {
       "email": "Email",
       "postalCode": "Postal code",
-      "submit": "Submit"
+      "submit": "Submit",
+      "emptyEmail": "Email is required.",
+      "emptyPostalCode": "Postal code is required.",
+      "incorrectEmail": "Please insert a correct email address.",
+      "incorrectPostalCode": "Incorrect postal code, please use A1A 1A1 format.",
+      "undeliverablePostalCode": "Your postal code is outside our delivery zone."
+    }
+  },
+  "confirmation": {
+    "title": "Thank you for subscribing",
+    "body": {
+      "email": "Your Email: ",
+      "postalCode": "Your Postal Code: "
     }
   }
 }
