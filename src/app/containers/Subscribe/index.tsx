@@ -9,9 +9,56 @@ import { translations } from 'locales/translations';
 import { FormLabel } from 'app/components/FormLabel';
 import { Input } from 'app/components/Input';
 import { Button } from 'app/components/Button';
+import { useForm } from 'react-hook-form';
+
+import { isValidEmail, isValidPostalCode } from '../../../utils/validation';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export function Subscribe() {
   const { t } = useTranslation();
+  const { register, handleSubmit } = useForm();
+  const history = useHistory();
+
+  const onSubmit = event => {
+    let email = event['email'];
+    let postalCode = event['postalCode'];
+    if (email.length != 0) {
+      if (!isValidEmail(email)) {
+        alert(t(translations.subscribe.form.incorrectEmail));
+      } else if (postalCode.length != 0) {
+        if (!isValidPostalCode(postalCode)) {
+          alert(t(translations.subscribe.form.incorrectPostalCode));
+        } else {
+          axios({
+            method: 'POST',
+            url:
+              'https://s9g64p6vzb.execute-api.us-east-1.amazonaws.com/default/interview-is-zip-valid',
+            data: {
+              zip: postalCode,
+            },
+          })
+            .then(response => {
+              let isDeliverable = response['data']['is_deliverable'];
+              if (!isDeliverable) {
+                alert(t(translations.subscribe.form.undeliverablePostalCode));
+              } else {
+                history.push('/confirmation', {
+                  params: { email, postalCode },
+                });
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      } else {
+        alert(t(translations.subscribe.form.emptyPostalCode));
+      }
+    } else {
+      alert(t(translations.subscribe.form.emptyEmail));
+    }
+  };
 
   return (
     <>
@@ -22,12 +69,18 @@ export function Subscribe() {
       <NavBar />
       <Wrapper>
         <h1>{t(translations.subscribe.title)}</h1>
-        <Form>
-          <FormLabel htmlFor="email">{t(translations.subscribe.form.email)}</FormLabel>
-          <Input type="text" name="email" />
-          <FormLabel htmlFor="postalCode">{t(translations.subscribe.form.postalCode)}</FormLabel>
-          <Input type="text" name="postalCode" />
-          <Button>{t(translations.subscribe.form.submit)}</Button>
+        <Form id="subscribe-form">
+          <FormLabel htmlFor="email">
+            {t(translations.subscribe.form.email)}
+          </FormLabel>
+          <Input type="text" name="email" ref={register} />
+          <FormLabel htmlFor="postalCode">
+            {t(translations.subscribe.form.postalCode)}
+          </FormLabel>
+          <Input type="text" name="postalCode" ref={register} />
+          <Button type="submit" onClick={handleSubmit(onSubmit)}>
+            {t(translations.subscribe.form.submit)}
+          </Button>
         </Form>
       </Wrapper>
     </>
